@@ -1,11 +1,9 @@
 package com.ctrip.framework.apollo.spring.property;
 
 import com.ctrip.framework.apollo.ConfigChangeListener;
-import com.ctrip.framework.apollo.build.ApolloInjector;
 import com.ctrip.framework.apollo.enums.PropertyChangeType;
 import com.ctrip.framework.apollo.model.ConfigChange;
 import com.ctrip.framework.apollo.model.ConfigChangeEvent;
-import com.ctrip.framework.apollo.spring.annotation.SpringValueProcessor;
 import com.ctrip.framework.apollo.spring.util.SpringInjector;
 import com.google.gson.Gson;
 import java.lang.reflect.Field;
@@ -53,7 +51,7 @@ public class AutoUpdateConfigChangeListener implements ConfigChangeListener{
     }
     for (String key : keys) {
       // 1. check whether the changed key is relevant
-      Collection<SpringValue> targetValues = springValueRegistry.get(key);
+      Collection<SpringValue> targetValues = springValueRegistry.get(beanFactory, key);
       if (targetValues == null || targetValues.isEmpty()) {
         continue;
       }
